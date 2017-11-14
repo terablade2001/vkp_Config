@@ -26,13 +26,13 @@
 namespace vkp_Config {
 
 
-int cgf_LoadFile(const char* cfgfile, cfg_type& txtdata) {
+int cgf_LoadFile(const char* cfgfile, cfg_type& cfg_data) {
 	if (cfgfile == nullptr) {
 		std::cout << "LoadConfigFile: 1rsg arg = NULL. Aborting..." << std::endl;
 		return -1;
 	}
 
-	txtdata.clear();
+	cfg_data.clear();
 
 	std::string read_string;
 	std::fstream infile;
@@ -56,7 +56,7 @@ int cgf_LoadFile(const char* cfgfile, cfg_type& txtdata) {
 		if (pos == std::string::npos) continue;
 		if (pos == 0) continue;
 
-		txtdata.push_back(
+		cfg_data.push_back(
 			std::pair<std::string,std::string>(
 				read_string.substr(0, pos),
 				read_string.substr(pos+spacebar)
@@ -69,6 +69,30 @@ int cgf_LoadFile(const char* cfgfile, cfg_type& txtdata) {
 
 void cfg_ValueConvert(std::string& string_value, std::string& value) {
 	value.assign(string_value);
+}
+
+
+int cfg_CheckParams(
+	cfg_type& cfg_data,
+	std::vector<std::string>& checklist,
+	std::string& missing_params
+) {
+	missing_params.clear();
+	int r = 0;
+	for (auto const& i : checklist) {
+		auto it = std::find_if(cfg_data.begin(), cfg_data.end(),
+			[i](const std::pair<std::string, std::string>& el) {
+				return el.first == i;
+			}
+		);
+		if (it == cfg_data.end()) {
+			r=1;
+			if (missing_params.length() != 0)
+				missing_params.append(", ");
+			missing_params.append(i);
+		}
+	}
+	return r;
 }
 
 }; // namespace vkp_Config

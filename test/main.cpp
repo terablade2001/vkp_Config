@@ -33,26 +33,37 @@ using namespace vkp_Config;
 
 int main(int argc, char **argv) {
 
-	cfg_type txtdata;
-	int r = cgf_LoadFile("DefaultConfig.cfg", txtdata);
+	cfg_type cfg_data;
+	int r = cgf_LoadFile("DefaultConfig.cfg", cfg_data);
 	if (r != 0) return -1;
+
+	std::vector<std::string> CheckParamList = {
+		"Version", "Mode", "FileA", "FileB", "Speed", "Rate"
+	};
+	std::string NotExistingParams;
+
+	r = cfg_CheckParams(cfg_data, CheckParamList, NotExistingParams);
+	if (r != 0) {
+		std::cout << "The following parameters were not found: \n" <<
+		        "[" << NotExistingParams << "]\n" << std::endl;
+	}
 
 	int Mode = -1;
 	float Rate = 0.0f;
 	std::string FilenameA;
 	std::string FilenameB;
 
-	r |= cgf_GetParam(txtdata, "Mode", Mode);
-	r |= cgf_GetParam(txtdata, "FileA", FilenameA);
-	r |= cgf_GetParam(txtdata, "FileB", FilenameB);
-	r |= cgf_GetParam(txtdata, "Rate", Rate);
-
-	if (r != 0) return -1;
+	cgf_GetParam(cfg_data, "Mode", Mode);
+	cgf_GetParam(cfg_data, "FileA", FilenameA);
+	cgf_GetParam(cfg_data, "FileB", FilenameB);
+	cgf_GetParam(cfg_data, "Rate", Rate);
 
 	std::cout << "Mode = [" << Mode << "]" << std::endl;
 	std::cout << "FileA = [" << FilenameA << "]" << std::endl;
 	std::cout << "FileB = [" << FilenameB << "]" << std::endl;
 	std::cout << "Rate = [" << Rate << "]" << std::endl;
+
+	std::cout << std::endl;
 
 	return 0;
 }

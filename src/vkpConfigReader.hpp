@@ -30,7 +30,7 @@
 #include <algorithm>
 #include <vector>
 
-#define VERSION_STRING "[0.014]"
+#define VERSION_STRING "[0.015]"
 
 namespace vkp_Config {
 
@@ -77,6 +77,11 @@ void inline cfg_ValueConvert(std::string& string_value, T& value) {
 		value = std::stoul(string_value);
 	else if (std::is_same<T, unsigned long long>::value)
 		value = std::stoull(string_value);
+	else if (std::is_same<T, bool>::value)
+		value = (bool)std::stoi(string_value);
+	else {
+		std::cout << "cfg_ValueConvert(): Not defined type!" << std::endl;
+	}
 }
 
 template <typename T>

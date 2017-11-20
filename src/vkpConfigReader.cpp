@@ -37,6 +37,11 @@ int cgf_LoadFile(const char* cfgfile, cfg_type& cfg_data) {
 	std::string read_string;
 	std::fstream infile;
 	infile.open(cfgfile);
+	if (!infile.is_open()) {
+		std::cout << "cfg_LoadFile(): Failed to load [" << cfgfile << "] file." <<
+			std::endl;
+		return -1;
+	}
 	while(!infile.eof()) {
 		size_t pos;
 		std::getline(infile, read_string);
@@ -62,6 +67,11 @@ int cgf_LoadFile(const char* cfgfile, cfg_type& cfg_data) {
 				read_string.substr(pos+spacebar)
 			)
 		);
+	}
+	if (infile.bad()) {
+		std::cout << "cfg_LoadFile(): Error while reading [" << cfgfile <<
+			"] file." << std::endl;
+		return -1;
 	}
 	return 0;
 }

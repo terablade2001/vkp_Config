@@ -30,7 +30,7 @@
 #include <algorithm>
 #include <vector>
 
-#define VERSION_STRING "[0.013]"
+#define VERSION_STRING "[0.014]"
 
 namespace vkp_Config {
 

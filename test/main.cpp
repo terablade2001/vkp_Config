@@ -34,7 +34,7 @@ using namespace vkp_Config;
 int main(int argc, char **argv) {
 
 	cfg_type cfg_data;
-	int r = cgf_LoadFile("DefaultConfig.cfg", cfg_data);
+	int r = cfg_LoadFile("DefaultConfig.cfg", cfg_data);
 	if (r != 0) return -1;
 
 	std::vector<std::string> CheckParamList = {
@@ -53,10 +53,10 @@ int main(int argc, char **argv) {
 	std::string FilenameA;
 	std::string FilenameB;
 
-	cgf_GetParam(cfg_data, "Mode", Mode);
-	cgf_GetParam(cfg_data, "FileA", FilenameA);
-	cgf_GetParam(cfg_data, "FileB", FilenameB);
-	cgf_GetParam(cfg_data, "Rate", Rate);
+	cfg_GetParam(cfg_data, "Mode", Mode);
+	cfg_GetParam(cfg_data, "FileA", FilenameA);
+	cfg_GetParam(cfg_data, "FileB", FilenameB);
+	cfg_GetParam(cfg_data, "Rate", Rate);
 
 	std::cout << "Mode = [" << Mode << "]" << std::endl;
 	std::cout << "FileA = [" << FilenameA << "]" << std::endl;

@@ -26,7 +26,7 @@
 namespace vkp_Config {
 
 
-int cgf_LoadFile(const char* cfgfile, cfg_type& cfg_data) {
+int cfg_LoadFile(const char* cfgfile, cfg_type& cfg_data) {
 	if (cfgfile == nullptr) {
 		std::cout << "LoadConfigFile: 1rsg arg = NULL. Aborting..." << std::endl;
 		return -1;

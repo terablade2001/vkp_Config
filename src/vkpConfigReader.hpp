@@ -34,7 +34,7 @@
 	#include <string>
 #endif
 
-#define VERSION_STRING "[0.016]"
+#define VERSION_STRING "[0.017]"
 
 namespace vkp_Config {
 
@@ -42,7 +42,7 @@ typedef std::vector<std::pair<std::string,std::string>> cfg_type;
 
 
 
-int cgf_LoadFile(const char* cfgfile, cfg_type& cfg_data);
+int cfg_LoadFile(const char* cfgfile, cfg_type& cfg_data);
 
 void cfg_ValueConvert(std::string& string_value, std::string& value);
 
@@ -50,7 +50,7 @@ template <typename T>
 void cfg_ValueConvert(std::string& string_value, T& value);
 
 template <typename T>
-int cgf_GetParam(cfg_type& cfg_data, const char* param, T& value);
+int cfg_GetParam(cfg_type& cfg_data, const char* param, T& value);
 
 int cfg_CheckParams(
 	cfg_type& cfg_data,
@@ -89,7 +89,7 @@ void inline cfg_ValueConvert(std::string& string_value, T& value) {
 }
 
 template <typename T>
-int inline cgf_GetParam(cfg_type& cfg_data, const char* param, T& value) {
+int inline cfg_GetParam(cfg_type& cfg_data, const char* param, T& value) {
 	if (param == nullptr) {
 		std::cout << "cfg_GetParam():: Error: 2nd argument == NULL. Aborting." <<
 		std::endl;
@@ -103,7 +103,7 @@ int inline cgf_GetParam(cfg_type& cfg_data, const char* param, T& value) {
 		);
 
 	if (it == cfg_data.end()) {
-		std::cout << "cgf_GetParam():: Error: [" << param << "] not found!" <<
+		std::cout << "cfg_GetParam():: Error: [" << param << "] not found!" <<
 		std::endl;
 		return -1;
 	}

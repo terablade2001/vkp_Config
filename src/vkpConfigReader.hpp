@@ -30,7 +30,11 @@
 #include <algorithm>
 #include <vector>
 
-#define VERSION_STRING "[0.015]"
+#ifdef _MSC_VER
+	#include <string>
+#endif
+
+#define VERSION_STRING "[0.016]"
 
 namespace vkp_Config {
 

@@ -34,7 +34,7 @@
 	#include <string>
 #endif
 
-#define VERSION_STRING "[0.017]"
+#define VERSION_STRING "[0.018]"
 
 namespace vkp_Config {
 
@@ -81,9 +81,17 @@ void inline cfg_ValueConvert(std::string& string_value, T& value) {
 		value = std::stoul(string_value);
 	else if (std::is_same<T, unsigned long long>::value)
 		value = std::stoull(string_value);
-	else if (std::is_same<T, bool>::value)
-		value = (bool)std::stoi(string_value);
-	else {
+	else if (std::is_same<T, bool>::value) {
+		try {
+			value = (bool)std::stoi(string_value);
+		} catch(std::exception &e) {
+			if ((string_value.compare("true") == 0) ||
+					(string_value.compare("TRUE") == 0) ||
+					(string_value.compare("True") == 0)
+			) value = true;
+			else value = false;
+		}
+	} else {
 		std::cout << "cfg_ValueConvert(): Not defined type!" << std::endl;
 	}
 }
@@ -107,7 +115,7 @@ int inline cfg_GetParam(cfg_type& cfg_data, const char* param, T& value) {
 		std::endl;
 		return -1;
 	}
-
+	
 	cfg_ValueConvert((*it).second, value);
 	return 0;
 }
